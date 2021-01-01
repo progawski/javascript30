@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playing with CSS Variables and JS</title>
+</head>
+<style>
+    :root{
+        --base: #ffc600;
+        --spacing: 10px;
+        --blur: 10px;
+    }
+
+    body{
+        text-align: center;
+    }
+
+    img{
+        padding: var(--spacing);
+        background: var(--base);
+        filter: blur(var(--blur));
+        display: block;
+        margin: auto;
+    }
+
+</style>
+<body>
+    <h2>Update CSS variables with JS</h2>
+    <div class="controls">
+        <label for="spacing">Spacing</label>
+        <input type="range" name="spacing" min="0" max="10" value="0" data-sizing="px">
+        <label for="blur">Blur</label>
+        <input type="range" name="blur" min="0" max="10" value="0" data-sizing="px">
+        <label for="Base color">Color</label>
+        <input type="color" name="base" min="0" max="10" value="#ffc600">
+    </div>
+
+    <img src="zombusic1.png" alt="Image">
+
+    <script>
+
+        const inputs = document.querySelectorAll('.controls input');
+
+        function handleUpdate(){
+            const suffix = this.dataset.sizing || '';
+            document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+        }
+        
+        inputs.forEach(input => input.addEventListener('change', handleUpdate));
+        inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+
+
+    </script>
+</body>
+</html>
